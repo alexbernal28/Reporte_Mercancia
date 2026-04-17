@@ -1,0 +1,49 @@
+<h2 class="fw-bold">Bienvenido {{user.username}}</h2>
+
+<h3 class="text-center">Reporte de Mercancía</h3>
+
+<div class="col-12 col-md-10 offset-md-1">
+    {{#if hasproducts}}
+    <table class="table table-bordered mt-3">
+        <thead class="table-primary">
+            <tr class="text-center">
+                <th>Nombre de Mercancía</th>
+                <th>Cantidad</th>
+                <th>Transportista</th>
+                <th>Fecha de salida</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr class="text-center">
+                <td>{{this.nombre_mercancia}}</td>
+                <td>{{this.cantidad }}</td>
+                <td>{{this.transportista }}</td>
+                <td>{{this.fecha_formateada }}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center mt-3">
+
+        {{#if (gt currentPage 1)}}
+        <a href="/?page={{decrement currentPage}}" class="btn btn-outline-primary me-2">
+            < 
+        </a>
+        {{/if}}
+
+        <span class="align-self-center">
+            Página {{currentPage}} de {{totalPages}}
+        </span>
+
+        {{#if (lt currentPage totalPages)}}
+        <a href="/?page={{increment currentPage}}" class="btn btn-outline-primary ms-2">
+            >
+        </a>
+        {{/if}}
+
+    </div>
+    {{else}}
+    <div class="alert alert-warning mt-3 text-center fw-bold" role="alert">No hay ninguna mercancía registrada.</div>
+    {{/if}}
+</div>

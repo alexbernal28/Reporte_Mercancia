@@ -1,0 +1,31 @@
+<div class="col-12 col-md-6 offset-md-3">
+    <div class="card">
+        <div class="card-header bg-success text-light text-center">
+            <h3>Iniciar sesión</h3>
+        </div>
+        <div class="card-body">
+            <form action="/login" method="post">
+
+                <div class="form-group mb-3">
+                    <label for="user" class="form-label fw-bold">Usuario:</label>
+                    <input type="text" class="form-control" name="username" id="user" required>
+                    <div class="invalid-feedback">El usuario es obligatorio.</div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password" class="form-label fw-bold">Contraseña:</label>
+                    <input type="password" class="form-control" name="password" id="password" required>
+                    <div class="invalid-feedback">La contraseña es obligatoria.</div>
+                </div>
+
+                <button type="submit" class="btn btn-success float-end" onclick="validate()">Iniciar sesión</button>
+            </form>
+
+            {{#if message}}
+                <p class="text-danger">{{message}}</p>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/site/validator.js"></script>

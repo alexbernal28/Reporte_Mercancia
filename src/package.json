@@ -1,0 +1,33 @@
+{
+  "name": "reporte_mercancia",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/alexbernal28/Reporte_Mercancia#readme",
+  "bugs": {
+    "url": "https://github.com/alexbernal28/Reporte_Mercancia/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexbernal28/Reporte_Mercancia.git"
+  },
+  "license": "ISC",
+  "author": "Elvyn Alexander Bernal",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-handlebars": "^9.0.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.20.0"
+  }
+}

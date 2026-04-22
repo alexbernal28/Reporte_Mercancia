@@ -38,7 +38,7 @@ app.use((req, res) => {
 });
 
 try {
-    app.listen(process.env.PORT || 4000);
+    app.listen(process.env.PORT || 4000, "0.0.0.0");
     console.log(`Server running on http://localhost:${process.env.PORT || 4000}`);
 } catch (err) {
     console.error("Error connecting to the server:", err);

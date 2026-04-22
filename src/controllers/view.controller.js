@@ -1,4 +1,5 @@
 import { getProductsPaginated, countProducts } from "../repositories/product.repopsitory.js";
+import "../utils/LoadEnvConfig.js";
 
 export const showlogin = (req, res) => {
     const error = req.query.error;
@@ -26,6 +27,8 @@ export const showlogin = (req, res) => {
 
 export const showHome = async (req, res) => {
 
+    const CONTAINER_NAME = process.env.APP_NAME || 'unknow';
+
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const offset = (page - 1) * limit
@@ -45,6 +48,8 @@ export const showHome = async (req, res) => {
         currentPage: page,
         totalPages,
         hasproducts: formattedProducts.length > 0,
-        user: req.user
+        CONTAINER_NAME,
+        user: req.user,
+        title: "Reporte de Mercancia"
     });
 };

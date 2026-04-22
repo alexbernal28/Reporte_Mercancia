@@ -3,6 +3,7 @@ import { login } from "../controllers/auth.controller.js";
 import requireAuth from "../middlewares/auth.middleware.js"
 import { showHome, showlogin } from "../controllers/view.controller.js";
 import { createProducts } from "../controllers/product.controller.js";
+import { health } from "../controllers/health.controller.js";
 
 const router = express.Router();
 
@@ -12,5 +13,7 @@ router.get("/", requireAuth, showHome);
 router.get("/login", showlogin);
 
 router.post("/api/products", requireAuth, createProducts);
+
+router.get("/health", health);
 
 export default router;

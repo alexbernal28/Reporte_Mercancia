@@ -75,6 +75,17 @@ services:
     env_file:
       - .env
 
+  bot:
+    build: .
+    container_name: telegram_bot
+    command: node bots/telegram.bot.js
+    depends_on:
+      - nginx
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - API_URL=http://nginx/api/products
+      - API_TOKEN=${API_TOKEN}
+
   postgres:
     image: postgres:15
     container_name: postgres_db
@@ -84,7 +95,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

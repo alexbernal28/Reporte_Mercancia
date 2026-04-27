@@ -1,4 +1,5 @@
 import { upsertProducts } from "../repositories/product.repopsitory.js";
+import { getAllProducts, getProductsPaginated } from "../repositories/product.repopsitory.js";
 
 export const createProducts = async (req, res) => {
     try {
@@ -19,5 +20,15 @@ export const createProducts = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error" });
+    }
+};
+
+export const getProducts = async (req, res) => {
+    try {
+        const products = await getAllProducts();
+        res.json(products);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al obtener productos" });
     }
 };

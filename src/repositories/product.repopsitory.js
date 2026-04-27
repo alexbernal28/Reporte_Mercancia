@@ -24,6 +24,13 @@ export const upsertProducts = async (products) => {
     await pool.query(query, values);
 };
 
+export const getAllProducts = async () => {
+    const result = await pool.query(
+        "SELECT * FROM products ORDER BY id",
+    );
+    return result.rows;
+}
+
 export const getProductsPaginated = async (limit, offset) => {
     const result = await pool.query(
         "SELECT * FROM products ORDER BY id LIMIT $1 OFFSET $2",

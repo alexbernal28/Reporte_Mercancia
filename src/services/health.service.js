@@ -7,6 +7,7 @@ export const getHealthStatus = async () => {
         status: dbOk ? "ok" : "error",
         api: "up",
         database: dbOk ? "up" : "down",
+        version: process.env.APP_VERSION || "1.0.0",
         uptime: process.uptime(),
         timestamp: new Date()
     };

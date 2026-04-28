@@ -13,7 +13,9 @@ export const health = async (req, res) => {
         return res.status(500).json({
             status: "error",
             api: "down",
-            database: "unknown"
+            database: "unknown",
+            version: process.env.APP_VERSION || "1.0.0",
+            uptime: process.uptime()
         });
 
     }

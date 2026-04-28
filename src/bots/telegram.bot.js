@@ -42,6 +42,36 @@ export const startTelegramBot = () => {
         }
     });
 
+    bot.onText(/\/health/, async (msg) => {
+        const chatID = msg.chat.id;
+
+        try {
+            const res = await axios.get(process.env.HEALTH_URL, {
+                headers: {
+                    Authorization: `Bearer ${API_TOKEN}`
+                }
+            });
+
+            const data = res.data;
+
+            const message = `
+                Estado de la app
+
+                API: ${data.api === "up" ? "OK" : "ERROR"}
+                DB: ${data.database === "up" ? "OK" : "ERROR"}
+                Version: ${data.version}
+                Uptime: ${Math.floor(data.uptime)}s
+            `;
+
+            bot.sendMessage(chatID, message);
+
+        } catch (error) {
+            console.error("BOT HEALTH ERROR: ", error.message);
+
+            bot.sendMessage(chatID, "No se pudo consultar el estado del sistema");
+        }
+    });
+
     console.log("Telegram Bot Running");
 }
 

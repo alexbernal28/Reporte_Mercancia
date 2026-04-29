@@ -17,6 +17,5 @@ export const health = async (req, res) => {
             version: process.env.APP_VERSION || "1.0.0",
             uptime: process.uptime()
         });
-
     }
 }

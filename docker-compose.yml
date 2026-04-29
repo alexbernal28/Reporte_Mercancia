@@ -100,26 +100,28 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # backup:
-  #   image: postgres:15
-  #   container_name: postgres_backup
-  #   depends_on:
-  #     - postgres
-  #   volumes:
-  #     - ./backups:/backups
-  #   environment:
-  #     - POSTGRES_USER=${POSTGRES_USER}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-  #     - POSTGRES_DB=${POSTGRES_DB}
-  #     - PGPASSWORD=${POSTGRES_PASSWORD}
-  #   entrypoint: >
-  #     sh -c "
-  #     apt-get update && apt-get install -y zip cron &&
-  #     echo '* * * * * pg_dump -h postgres -U $${POSTGRES_USER} $${POSTGRES_DB} > /backups/backup.sql && zip /backups/backup_$(date +\%Y\%m\%d_\%H\%M).zip /backups/backup.sql 2>> /backups/error.log' > /etc/cron.d/backup-cron &&
-  #     chmod 0644 /etc/cron.d/backup-cron &&
-  #     crontab /etc/cron.d/backup-cron &&
-  #     cron -f
-  #     "
+  backup:
+    image: postgres:15
+    container_name: postgres_backup
+    depends_on:
+    - postgres
+    volumes:
+      - ./backups:/backups
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PGPASSWORD=${POSTGRES_PASSWORD}
+    entrypoint: >
+      sh -c "
+      while true; do
+        echo 'Ejecutando backup...';
+        pg_dump -h postgres -U $POSTGRES_USER $POSTGRES_DB > /backups/backup.sql;
+        gzip -f /backups/backup.sql;
+        mv /backups/backup.sql.gz /backups/backup_$(date +%Y%m%d_%H%M%S).sql.gz;
+        echo 'Backup completado';
+        sleep 60;
+      done
+      "
   
   cloudflared:
     image: cloudflare/cloudflared:latest
